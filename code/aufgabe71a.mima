@@ -2,7 +2,7 @@
 ; MatrNr.: 2425976
 
 ; 7.1a)
-; inputs: x,y,z sind 20 bit wörter
+; local vars: x,y,z sind 20 bit wörter
 
 x: DS 42
 y: DS 0
@@ -26,5 +26,6 @@ highSet:   LDC 1
 highClear: ADD x
 ; end of function:ral
 
+  STV x
 end:
   HALT
