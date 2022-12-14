@@ -1,0 +1,75 @@
+; Christian Englert
+; MatrNr.: 2425976
+; GBI Blatt 7 Aufgabe 7.4)
+
+input:
+DS 0
+DS 2
+DS 3
+DS 4
+DS 5
+DS 6
+DS 7
+DS 8
+DS 0
+
+; inputs
+array: DS input
+
+; local variables
+_iter: DS 0xbeef
+_swap: DS 0xdead
+
+; constants
+NULL: DS 0
+
+; Function reverse
+; Mirrors a 0-terminated string such that the folowing conditions hold
+;    |reverse(w)| = |w|
+;    reverse(w)[i] = w[|w| - i - 1]      (for 0 <= i <= |w|)
+; input: array points to first char of string
+; output: inplace
+; side-effects: clobbers array, _iter, _swap
+START:
+  LDV array
+  STV _iter    ; _iter = array
+
+findEnd:
+  LDIV _iter
+  EQL NULL
+  JMN reverse     ; if (*_iter == 0) break
+  
+  LDC 1
+  ADD _iter
+  STV _iter       ; _iter++
+  JMP findEnd
+
+reverse:
+  LDV array
+  EQL _iter
+  JMN end         ; if (array == _iter) return
+
+  LDC 0
+  NOT
+  ADD _iter
+  STV _iter       ; _iter--
+  
+  LDIV array
+  STV _swap       ; _swap = *array
+  LDIV _iter
+  STIV array      ; *array = *_iter
+  LDV _swap
+  STIV _iter      ; *_iter = _swap
+
+  LDV array
+  EQL _iter
+  JMN end         ; if (array == _iter) return
+
+  LDC 1
+  ADD array
+  STV array       ; array++
+  JMP reverse
+
+
+end:
+  HALT
