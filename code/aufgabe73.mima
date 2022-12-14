@@ -36,6 +36,10 @@ _i: DS 0xbeef
 C_MAX: DS 12
 C_MASK: DS 0x001001
 
+;; Version 2 Change: Split wheels in 2 and perform operation twice as fast!
+;; C_MAX:        old 24 => new 12
+;; C_MASK: old 0x000001 => new 0x001001
+
 ; Function reverse
 ; Mirrors one word (24bit) such that the folowing conditions hold
 ;    |reverse(w)| = |w|
