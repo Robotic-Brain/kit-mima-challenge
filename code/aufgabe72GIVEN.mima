@@ -1,0 +1,38 @@
+
+
+*=4
+NULL: DS 12
+x: DS 154
+next_ptr: DS 29
+DS 33
+DS 5
+DS 14
+DS 0
+DS 29
+DS 3
+DS 0
+DS 17
+DS 12
+item_ptr: DS 8
+
+
+START: LDC 1
+ADD item_ptr
+STV next_ptr
+LDC 0
+STV x
+STV NULL
+add_next: LDIV item_ptr
+ADD x
+STV x
+LDIV next_ptr
+EQL NULL
+JMN was_last_element
+LDIV next_ptr
+STV item_ptr
+LDC 1
+ADD item_ptr
+STV next_ptr
+JMP add_next
+was_last_element: LDV x
+HALT
