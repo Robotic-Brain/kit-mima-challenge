@@ -3,7 +3,7 @@
 ; GBI Blatt 7 Aufgabe 7.4)
 
 input:
-DS 0
+DS 1
 DS 2
 DS 3
 DS 4
@@ -12,6 +12,22 @@ DS 6
 DS 7
 DS 8
 DS 0
+
+;; How does this work?
+; We use C++ style iteration logic to find the start and end "iterator" for the given array.
+; A typical C++ iterator is used like this:
+; for (auto it = array.begin(); it != array.end(); ++it) { auto value = *it }
+; The semantics are:
+;    .begin() returns an iterator pointing to the first element.
+;    .end() returns an iterator pointing to an element past the end of the array.
+;    *it dereferences the iterator as if it were a pointer to the current element.
+;    Iterators can only be compared for equality and are not "ordered" in the mathematical sense.
+; In this programm we also use the concept of a "reverse iterator" which behaves similarly in reverse.
+; To reverse the string we first calculate the "rbegin()" or reverse start iterator
+; and then walk the array from both sides, swapping the pointed to elements along the way.
+; When the iterators "cross" each other, we have reached the midpoint and are done.
+; Because iterators can only be checked for equality we have to make sure that we advance
+; each endpoint one at a time and check for the crossover in between to handle all possible array sizes.
 
 ; inputs
 array: DS input
@@ -27,6 +43,7 @@ NULL: DS 0
 ; Mirrors a 0-terminated string such that the folowing conditions hold
 ;    |reverse(w)| = |w|
 ;    reverse(w)[i] = w[|w| - i - 1]      (for 0 <= i <= |w|)
+; This implementation works for any string size including |w| = 0!
 ; input: array points to first char of string
 ; output: inplace
 ; side-effects: clobbers array, _iter, _swap
@@ -42,12 +59,14 @@ findEnd:
   LDC 1
   ADD _iter
   STV _iter       ; _iter++
-  JMP findEnd
+  JMP findEnd     ; loop until terminating 0 found
 
+; array acts like a forward iterator
+; _iter acts like a backwards iterator
 reverse:
   LDV array
   EQL _iter
-  JMN end         ; if (array == _iter) return
+  JMN end         ; if (array == _iter) return  // catches strings with even length
 
   LDC 0
   NOT
@@ -63,13 +82,12 @@ reverse:
 
   LDV array
   EQL _iter
-  JMN end         ; if (array == _iter) return
+  JMN end         ; if (array == _iter) return  // catches strings with odd length
 
   LDC 1
   ADD array
   STV array       ; array++
-  JMP reverse
-
+  JMP reverse     ; loop until iterators cross in the middle
 
 end:
   HALT
