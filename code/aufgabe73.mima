@@ -6,6 +6,27 @@
 in: DS 0xdeadbe
 out: DS 0
 
+;; How does this work?
+; We assume in and out are two cyclic buffers rotating in opposite directions.
+; The buffer "wheels" only meet in one specific point.
+; For each step we:
+; 1. advance each wheel by one step.
+; 2. transfer one bit from in to out at the intersection point.
+;
+; Visualized (window fixed):
+; in wheel:         |   ABCD|  ABCD | ABCD  |ABCD   |   <------------ (x << 1 per step)
+; transfer window:  |   1   |   1   |   1   |   1   |   <------------ (fixed)
+; out wheel:        |DCBA   | DCBA  |  DCBA |   DCBA|   <------------ (x >> 1 per step)
+;
+; Because MIMA does not provida a RAL opperation we "simulate" it
+; by moving the "transfer window" in the opposite direction instead.
+; We compensate for the now moving window by rotating the other wheel 2x as fast
+;
+; Visualized (wheel fixed):
+; in wheel:         |   ABCD   |   ABCD   |   ABCD   |   ABCD   |  <- (fixed)
+; transfer window:  |   1      |    1     |     1    |      1   |  <- (x >> 1 per step)
+; out wheel:        |DCBA      |  DCBA    |    DCBA  |      DCBA|  <- (x >> 2 per step)
+
 ; local variables
 _mask: DS 0xdead
 _i: DS 0xbeef
