@@ -28,9 +28,15 @@ START:
 
 a_less_b:
   LDC 1
+  STV x
   JMP end
 a_geq_b:
-  LDC 2
+  LDC 0
+  STV x
   JMP end
 
 end: HALT
+
+
+; Zu: 7.1.b.ii)
+; Nein funktioniert nicht Gegenbeispiel: a=0x800000 b=0
