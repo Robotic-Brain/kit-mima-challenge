@@ -1,0 +1,30 @@
+; Christian Englert
+; MatrNr.: 2425976
+
+; 7.1a)
+; inputs: x,y,z sind 20 bit wörter
+
+x: DS 42
+y: DS 0
+z: DS 0
+
+START:
+  LDV x
+
+; Function: ral
+;     inverse of already existing opcode RAR
+;     ral: Z_2^24 -> Z_2^24
+;     ral: ral(xw) = wx
+; input: given via Akku
+; output: given via Akku
+; sideffects: clobbers x
+ral:       STV x
+           JMN highSet
+           JMP highClear
+highSet:   LDC 1
+           ADD x
+highClear: ADD x
+; end of function:ral
+
+end:
+  HALT
