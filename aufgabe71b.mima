@@ -1,0 +1,36 @@
+; Christian Englert
+; MatrNr.: 2425976
+
+; 7.1.b.i)
+; local variables: x,y,z sind 20 bit wörter
+
+x: DS 0
+y: DS 0
+z: DS 0
+
+; inputs
+a: DS 10      ; positive
+b: DS -5      ; positive
+
+; Function: compare(a,b)
+;   if (a < b) { JMP a_less_b }
+;   else       { JMP a_geq_b }
+; side-effects: none
+START:
+; load -1 by inversion trick
+  LDC 0    ; akku = 0
+  NOT      ; akku = -1
+  ADD b    ; akku = b-1
+  NOT      ; akku = inv(b-1) = inv(b) + 1 = two's complement of b = -b
+  ADD a    ; akku = a-b => positive if a < b, nexgative if a >= b
+  JMN a_less_b
+  JMP a_geq_b
+
+a_less_b:
+  LDC 1
+  JMP end
+a_geq_b:
+  LDC 2
+  JMP end
+
+end: HALT
