@@ -1,0 +1,45 @@
+; inputs
+in: DS 0xdeadbe
+out: DS 0
+
+; constants
+C_MAX: DS 12
+
+; local variables
+_mask: DS 0x001001
+_i: DS 0
+
+; Function reverse
+; Mirrors one word (24bit) such that the folowing conditions hold
+;    |reverse(w)| = |w|
+;    reverse(w)[i] = w[|w| - i - 1]      (for 0 <= i <= |w|)
+; input: in
+; output: out
+; side-effects: clobbers mask, i
+START:
+  LDV in
+  AND _mask
+  ADD out
+  RAR
+  RAR
+  STV out     ; out = (out + (in & _mask)) >> 2
+  
+  LDV _mask
+  RAR
+  STV _mask   ; _mask = _mask >> 1
+
+  LDC 1
+  ADD _i
+  STV _i     ; _i++
+
+  EQL C_MAX
+  JMN finish ; if (_i == C_MAX) break
+  JMP START
+
+finish:
+  LDV out
+  RAR
+  STV out   ; out = out >> 1
+
+end:
+  HALT
