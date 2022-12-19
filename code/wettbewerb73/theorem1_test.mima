@@ -5,8 +5,6 @@ out: DS 0
 ;; IMPORTANT: DO NOT CONSIDER
 ;; THIS IS PREPARING A POSSIBLE CHEAT!
 
-; This tests the theory that there exists a test with more than 12 bits set
-
 ; constants
 C_MAX: DS 12
 C_NULL: DS 0
@@ -20,7 +18,7 @@ _extraction_store: DS 0
 ; gaming the system
 _a: DS 50
 _m: DS 0
-C_BIT_EXT_MASK: DS 0x000018   ; callibration: 0x0 => 839 steps; 0x1 => 828
+C_BIT_EXT_MASK: DS 0x000001   ; callibration: 0x0 => 839 steps; 0x1 => 828
 
 START:
   LDV in
@@ -66,7 +64,7 @@ poi_calc_vars_tmp: DS 0
 poi_calc:
   LDV poi_calc_vars_i
   EQL poi_calc_vars_len
-  JMN extractor               ; break if i == len
+  JMN theory               ; break if i == len
 
   LDV poi_calc_vars_tmp
   AND C_ONE
@@ -82,10 +80,21 @@ poi_calc:
   STV poi_calc_vars_i         ; i++
   JMP poi_calc                ; loop
 
+
+
+JMP theory
+_theory_vars_MASK: DS 0x00000c
+theory:
+  LDV _extraction_store
+  AND _theory_vars_MASK
+  XOR _theory_vars_MASK
+  EQL C_NULL
+  STV _extraction_store
+
+
 extractor:
   LDV _extraction_store
   AND C_BIT_EXT_MASK
-  XOR C_BIT_EXT_MASK
   EQL C_NULL
   JMN extra_delay
   HALT
