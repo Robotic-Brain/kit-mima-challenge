@@ -51,6 +51,27 @@
 | 0xcccccc  | 843   | 1256  | T4 Test For Explicit Value (1010...) |
 | 0x555555  | 843-1 | 1267  | T4 Test For Explicit Value (0101...) |
 | 0xffffff  | 843-1 | 1267  | T4 Test For Explicit Value (1111...) |
+| ?         | 849   | 1208  | T5 Bin Search Callib |
+| 0xfff000  | 849-1 | 1219  | T5 Bin Search |
+| 0xfc0000  | 849-1 | 1219  | T5 Bin Search |
+| 0x03f000  | 849-2 | 1230  | T5 Bin Search |
+| 0xf00000  | 849-0 | 1219  | T5 Bin Search |
+| 0xc00000  | 849-0 | 1219  | T5 Bin Search |
+| 0x800000  | 849-0 | 1219  | T5 Bin Search |
+| 0x300000  | 849-2 | 1230  | T5 Bin Search |
+| 0x100000  | 843-0 | 1256  | T4 Test For Explicit Value (0x100000) |
+| 0x200000  | 843-0 | 1256  | T4 Test For Explicit Value (0x200000) |
+| ?         | 850   | 1200  | T6 Bin Search Callib |
+| 0xfff000  | 850-1 | 1211  | T6 Bin Search |
+| 0x000fff  | 850-1 | 1211  | T6 Bin Search |
+| 0x00003f  | 850-1 | 1211  | T6 Bin Search |
+| 0x000007  | 850-1 | 1211  | T6 Bin Search |
+| 0x000001  | 843-1 | 1267  | T4 Test For Explicit Value (0x1) |
+| 0x000002  | 843-0 | 1256  | T4 Test For Explicit Value (0x2) |
+| 0xfc0000  | 850-1 | 1211  | T6 Bin Search |
+| 0xe00000  | 850-1 | 1211  | T6 Bin Search |
+| 0x100000  | 843-0 | 1256  | T4 Test For Explicit Value (0x100000) |
+| 0x800000  | 843-1 | 1267  | T4 Test For Explicit Value (0x800000) |
 
 ## Deductions
 
@@ -60,3 +81,5 @@
 ## Found Values
 * 0x555555
 * 0xffffff
+* 0x000001
+* 0x800000
