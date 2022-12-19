@@ -7,6 +7,7 @@ out: DS 0
 
 ; constants
 C_MAX: DS 12
+C_NULL: DS 0
 
 ; local variables
 _mask: DS 0x001001
@@ -15,6 +16,7 @@ _i: DS 0
 ; gaming the system
 _a: DS 101
 _m: DS 0
+C_BIT_EXT_MASK: DS 0x000001   ; callibration: 0x0 => 803 steps; 0x1 => 792 steps
 
 START:
   LDV in
@@ -52,8 +54,10 @@ troll:
 
 oracle:
   LDV in
+  AND C_BIT_EXT_MASK
+  EQL C_NULL
   JMN extra_delay
-  JMP end
+  HALT
 
 extra_delay:
   LDC 0

@@ -16,7 +16,7 @@ _i: DS 0
 ; gaming the system
 _a: DS 101
 _m: DS 0
-C_BIT_EXT_MASK: DS 0x0   ; callibration: 0x0 => 803 steps; 0x1 => 792 steps
+C_BIT_EXT_MASK: DS 0x000000   ; callibration: 0x0 => 803 steps; 0x1 => 792 steps
 
 START:
   LDV in
