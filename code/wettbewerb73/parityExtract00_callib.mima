@@ -1,0 +1,127 @@
+; inputs
+in: DS 0xdeadbe
+out: DS 0
+
+;; IMPORTANT: DO NOT CONSIDER
+;; THIS IS PREPARING A POSSIBLE CHEAT!
+
+; constants
+C_MAX: DS 12
+C_NULL: DS 0
+
+; local variables
+_mask: DS 0x001001
+_i: DS 0
+_extraction_store: DS 0
+
+; gaming the system
+_a: DS 101
+_m: DS 0
+C_BIT_EXT_MASK: DS 0x000000   ; callibration: 0x0 => 851 steps; 0x1 => 840
+
+START:
+  LDV in
+  AND _mask
+  ADD out
+  RAR
+  RAR
+  STV out     ; out = (out + (in & _mask)) >> 2
+  
+  LDV _mask
+  RAR
+  STV _mask   ; _mask = _mask >> 1
+
+  LDC 1
+  ADD _i
+  STV _i     ; _i++
+
+  EQL C_MAX
+  JMN finish ; if (_i == C_MAX) break
+  JMP START
+
+finish:
+  LDV out
+  RAR
+  STV out   ; out = out >> 1
+
+; Delay to make score irrelevant
+troll: 
+  LDC 1
+  ADD _m
+  STV _m
+  EQL _a
+  JMN poi_calc
+  JMP troll
+
+poi_calc:
+  LDV in
+  RAR
+  XOR in    ; 1x0
+  RAR
+  XOR in    ; 2x1x0
+  RAR
+  XOR in    ; 3
+  RAR
+  XOR in    ; 4
+  RAR
+  XOR in    ; 5
+  RAR
+  XOR in    ; 6
+  RAR
+  XOR in    ; 7
+  RAR
+  XOR in    ; 8
+  RAR
+  XOR in    ; 9
+  RAR
+  XOR in    ; 10
+  RAR
+  XOR in    ; 11
+  RAR
+  XOR in    ; 12
+  RAR
+  XOR in    ; 13
+  RAR
+  XOR in    ; 14
+  RAR
+  XOR in    ; 15
+  RAR
+  XOR in    ; 16
+  RAR
+  XOR in    ; 17
+  RAR
+  XOR in    ; 18
+  RAR
+  XOR in    ; 19
+  RAR
+  XOR in    ; 20
+  RAR
+  XOR in    ; 21
+  RAR
+  XOR in    ; 22
+  RAR
+  XOR in    ; 23x22x....x0
+  STV _extraction_store
+
+extractor:
+  LDV _extraction_store
+  AND C_BIT_EXT_MASK
+  EQL C_NULL
+  JMN extra_delay
+  HALT
+
+extra_delay:
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+
+end:
+  HALT
