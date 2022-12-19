@@ -29,9 +29,15 @@
 | 0x200000  | 803-3 | 1609  | bitExtract01.mima* |
 | 0x400000  | 803-4 | 1620  | bitExtract01.mima* |
 | 0x800000  | 803-5 | 1631  | bitExtract01.mima* |
-| 0x800000  | 851   | 1192  | parityExtract00_callib.mima |
-| 0x800000  | 851-2 | 1214  | parityExtract00_callib.mima |
-| 0x800000  | 839   | 1228  | bitCountExtract_callib.mima |
+| 0x000000  | 851   | 1192  | parityExtract00_callib.mima |
+| 0x000001  | 851-2 | 1214  | parityExtract00_callib.mima* |
+| 0x000000  | 839   | 1288  | bitCountExtract_callib.mima |
+| 0x000001  | 839-2 | 1310  | bitCountExtract_callib.mima* |
+| 0x000002  | 839-1 | 1299  | bitCountExtract_callib.mima* |
+| 0x000004  | 839-4 | 1332  | bitCountExtract_callib.mima* |
+| 0x000008  | 839-6 | 1354  | bitCountExtract_callib.mima* |
+| 0x000010  | 839-1 | 1299  | bitCountExtract_callib.mima* |
+| 0x000020  | 839-0 | 1288  | bitCountExtract_callib.mima* |
 
 ## Deductions
 
