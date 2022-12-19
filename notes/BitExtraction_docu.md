@@ -30,6 +30,8 @@
 | 0x400000  | 803-4 | 1620  | bitExtract01.mima* |
 | 0x800000  | 803-5 | 1631  | bitExtract01.mima* |
 | 0x800000  | 851   | 1192  | parityExtract00_callib.mima |
+| 0x800000  | 851-2 | 1214  | parityExtract00_callib.mima |
+| 0x800000  | 839   | 1228  | bitCountExtract_callib.mima |
 
 ## Deductions
 
