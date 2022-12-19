@@ -38,8 +38,25 @@
 | 0x000008  | 839-6 | 1354  | bitCountExtract_callib.mima* |
 | 0x000010  | 839-1 | 1299  | bitCountExtract_callib.mima* |
 | 0x000020  | 839-0 | 1288  | bitCountExtract_callib.mima* |
+| 0x000000  | 844   | 1248  | Theory1 |
+| 0x000001  | 844-1 | 1259  | Theory1* |
+| 0x000001  | 844-4 | 1292  | Theory2* |
+| 0x000000  | 843   | 1256  | Theory3 |
+| 0x000001  | 843-0 | 1256  | Theory3*0xe |
+| 0x000001  | 843-1 | 1267  | Theory3*0xa |
+| 0x000001  | 843-0 | 1256  | Theory3*0xf*0x0 |
+| 0x000001  | 843-2 | 1278  | Theory3*0xf*0x1 |
+| 0x000001  | 843-4 | 1300  | Theory3*0xf*0xc |
+| 0x000000  | 843   | 1256  | T4 Test For Explicit Value (Base) |
+| 0xcccccc  | 843   | 1256  | T4 Test For Explicit Value (1010...) |
+| 0x555555  | 843-1 | 1267  | T4 Test For Explicit Value (0101...) |
+| 0xffffff  | 843-1 | 1267  | T4 Test For Explicit Value (1111...) |
 
 ## Deductions
 
 | X | 23 | 22 | 21 | 20 | 19 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
 |1 Bits| 5  | 4  | 3  | 4  | 3  | 3  | 3  | 3  | 3  | 4  | 4  | 3  | 3  | 4  | 4  | 3  | 3  | 3  | 3  | 3  | 4  | 3  | 4  | 5 |
+
+## Found Values
+* 0x555555
+* 0xffffff

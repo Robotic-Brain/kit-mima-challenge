@@ -1,0 +1,124 @@
+; inputs
+in: DS 0xdeadbe
+out: DS 0
+
+;; IMPORTANT: DO NOT CONSIDER
+;; THIS IS PREPARING A POSSIBLE CHEAT!
+
+; constants
+C_MAX: DS 12
+C_NULL: DS 0
+C_ONE: DS 1
+
+; local variables
+_mask: DS 0x001001
+_i: DS 0
+_extraction_store: DS 0
+
+; gaming the system
+_a: DS 50
+_m: DS 0
+C_BIT_EXT_MASK: DS 0x000000   ; callibration: 0x0 => 849 steps; 0x1 => 838
+
+START:
+  LDV in
+  AND _mask
+  ADD out
+  RAR
+  RAR
+  STV out     ; out = (out + (in & _mask)) >> 2
+  
+  LDV _mask
+  RAR
+  STV _mask   ; _mask = _mask >> 1
+
+  LDC 1
+  ADD _i
+  STV _i     ; _i++
+
+  EQL C_MAX
+  JMN finish ; if (_i == C_MAX) break
+  JMP START
+
+finish:
+  LDV out
+  RAR
+  STV out   ; out = out >> 1
+
+; Delay to make score irrelevant
+troll: 
+  LDC 1
+  ADD _m
+  STV _m
+  EQL _a
+  JMN poi_calc_vars
+  JMP troll
+
+poi_calc_vars:
+  LDV in
+  STV poi_calc_vars_tmp
+  JMP poi_calc
+poi_calc_vars_i: DS 0
+poi_calc_vars_len: DS 24
+poi_calc_vars_tmp: DS 0
+poi_calc:
+  LDV poi_calc_vars_i
+  EQL poi_calc_vars_len
+  JMN theory               ; break if i == len
+
+  LDV poi_calc_vars_tmp
+  AND C_ONE
+  ADD _extraction_store
+  STV _extraction_store       ; result = result + (tmp & 0x1)
+
+  LDV poi_calc_vars_tmp
+  RAR
+  STV poi_calc_vars_tmp
+
+  LDC 1
+  ADD poi_calc_vars_i
+  STV poi_calc_vars_i         ; i++
+  JMP poi_calc                ; loop
+
+
+
+JMP theory
+_theory_vars_tmp: DS 0x0
+_theory_vars_MASK: DS 0xfff000
+_theory_vars_TEST: DS 0x000000
+theory:
+  LDC 0
+  NOT
+  ADD _extraction_store
+  EQL C_NULL                ; _extraction_store == 1?
+  STV _theory_vars_tmp
+
+  LDV in
+  AND _theory_vars_MASK
+  EQL _theory_vars_TEST
+  AND _theory_vars_tmp
+  STV _extraction_store
+
+
+extractor:
+  LDV _extraction_store
+  AND C_BIT_EXT_MASK
+  EQL C_NULL
+  JMN extra_delay
+  HALT
+
+extra_delay:
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+
+end:
+  HALT
