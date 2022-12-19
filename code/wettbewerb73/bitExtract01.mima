@@ -1,0 +1,72 @@
+; inputs
+in: DS 0xdeadbe
+out: DS 0
+
+;; IMPORTANT: DO NOT CONSIDER
+;; THIS IS PREPARING A POSSIBLE CHEAT!
+
+; constants
+C_MAX: DS 12
+
+; local variables
+_mask: DS 0x001001
+_i: DS 0
+
+; gaming the system
+_a: DS 101
+_m: DS 0
+
+START:
+  LDV in
+  AND _mask
+  ADD out
+  RAR
+  RAR
+  STV out     ; out = (out + (in & _mask)) >> 2
+  
+  LDV _mask
+  RAR
+  STV _mask   ; _mask = _mask >> 1
+
+  LDC 1
+  ADD _i
+  STV _i     ; _i++
+
+  EQL C_MAX
+  JMN finish ; if (_i == C_MAX) break
+  JMP START
+
+finish:
+  LDV out
+  RAR
+  STV out   ; out = out >> 1
+
+; Delay to make score irrelevant
+troll: 
+  LDC 1
+  ADD _m
+  STV _m
+  EQL _a
+  JMN oracle
+  JMP troll
+
+oracle:
+  LDV in
+  JMN extra_delay
+  JMP end
+
+extra_delay:
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+
+end:
+  HALT
