@@ -1,5 +1,10 @@
 # Bit Extractor
 
+Tests marked with `*` use configuration values different from the file in the repository.
+
+* `Steps` denote actual MIMA steps as determined by the initial calibration run.
+* `BitBranches` denote how many Steps * 11 are lost by a branch taken.
+
 ## Measurements
 
 | Mask      | Steps-BitBranches | Score | File |
@@ -142,6 +147,9 @@
 | X | 23 | 22 | 21 | 20 | 19 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 |1 Bits| 5  | 4  | 3  | 4  | 3  | 3  | 3  | 3  | 3  | 4  | 4  | 3  | 3  | 4  | 4  | 3  | 3  | 3  | 3  | 3  | 4  | 3  | 4  | 5 |
+
+## Ref Sheet
+![LibreOffice Calc Bit extraction notes](BitHacker.png)
 
 ## Found Values
 * 0x555555
